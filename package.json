@@ -1,0 +1,60 @@
+{
+	"name": "@realware/utilities",
+	"version": "0.0.0",
+	"description": "Just some useful utility functions in a package.",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"author": "RealShadowNova <real.shadow.nova@gmail.com> (https://github.com/RealShadowNova)",
+	"license": "MIT",
+	"private": false,
+	"scripts": {
+		"lint": "eslint src tests scripts --ext mjs,ts --fix",
+		"format": "prettier --write {src,tests,scripts}/**/*.{mjs,ts}",
+		"test": "jest --verbose",
+		"clean": "node scripts/clean-dist.mjs",
+		"build": "tsc -b src && rollup -c scripts/rollup.bundle.ts",
+		"commit": "git-cz --disable-emoji",
+		"update": "yarn upgrade-interactive --latest",
+		"sv": "standard-version",
+		"prepublishOnly": "rollup-type-bundler"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@favware/rollup-type-bundler": "^1.0.3",
+		"@sapphire/eslint-config": "^3.2.3",
+		"@sapphire/ts-config": "^3.0.0",
+		"@types/jest": "^26.0.24",
+		"@types/node": "^16.4.8",
+		"eslint": "^7.32.0",
+		"jest": "^27.0.6",
+		"jest-circus": "^27.0.6",
+		"prettier": "^2.3.2",
+		"rollup": "^2.55.1",
+		"rollup-plugin-version-injector": "^1.3.3",
+		"ts-jest": "^27.0.4",
+		"ts-node": "^10.1.0",
+		"typescript": "^4.3.5"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/RealShadowNova/realware-utilities"
+	},
+	"bugs": {
+		"url": "https://github.com/RealShadowNova/realware-utilities/issues"
+	},
+	"files": [
+		"dist",
+		"!dist/*.tsbuildinfo"
+	],
+	"engines": {
+		"node": ">=14",
+		"npm": ">=6"
+	},
+	"homepage": "https://github.com/RealShadowNova/realware-utilities",
+	"keywords": [
+		"utilities"
+	],
+	"publishConfig": {
+		"access": "public"
+	}
+}
