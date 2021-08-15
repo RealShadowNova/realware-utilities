@@ -15,7 +15,6 @@
 		"build": "tsc -b src && rollup -c scripts/rollup.bundle.ts",
 		"commit": "git-cz --disable-emoji",
 		"update": "yarn upgrade-interactive --latest",
-		"sv": "standard-version",
 		"prepublishOnly": "rollup-type-bundler"
 	},
 	"dependencies": {},
