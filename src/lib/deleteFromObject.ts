@@ -14,7 +14,7 @@ export function deleteFromObject<Data extends Record<string, any>>(data: Data, p
 
 		if (previousStep[step] === undefined) previousStep[step] = {};
 
-		if (index === fullPath.length - 1) delete previousStep[step];
+		if (index === fullPath.length - 1) Reflect.deleteProperty(previousStep, step);
 		return previousStep[step];
 	}, data);
 
