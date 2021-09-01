@@ -1,5 +1,6 @@
 /**
  * A semi-complex function to manipulate and get paths in objects.
+ * @since 1.0.0
  * @param data The data object to manipulate.
  * @param path The string path or an array of strings forming a path.
  * @returns The data gotten after manipulation, else undefined.
