@@ -1,4 +1,4 @@
-import { hasFromObject } from '..';
+import { hasFromObject } from './hasFromObject';
 
 /**
  * A semi-complex function to manipulate and delete paths in objects.
@@ -7,10 +7,10 @@ import { hasFromObject } from '..';
  * @param path An array of strings forming a path.
  * @returns The manipulated value object.
  */
-export function deleteFromObject<InputValue extends Record<string, InputValue | unknown>, OutputValue extends Record<string, OutputValue | unknown>>(
-	value: InputValue,
-	path: string[]
-): OutputValue {
+export function deleteFromObject<
+	InputValue extends Record<string, InputValue | unknown>,
+	OutputValue extends Record<string, OutputValue | unknown> = InputValue
+>(value: InputValue, path: string[]): OutputValue {
 	if (!path.length) return value as OutputValue;
 	if (!hasFromObject(value, path)) value as OutputValue;
 
