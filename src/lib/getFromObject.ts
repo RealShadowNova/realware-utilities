@@ -7,12 +7,9 @@ import { hasFromObject } from './hasFromObject';
  * @param path An array of strings forming a path.
  * @returns The value received after manipulation, else undefined.
  */
-export function getFromObject<
-	InputValue extends Record<string, InputValue | unknown> | (InputValue | unknown)[],
-	OutputValue extends Record<string, OutputValue | unknown> | (OutputValue | unknown)[] = InputValue
->(value: InputValue, path: string[]): OutputValue | undefined {
+export function getFromObject<Input, Output = unknown>(value: Input, path: string[]): Output | undefined {
 	return path.reduce<Record<string, any>>(
 		(previousStep, step) => (hasFromObject(previousStep, [step]) ? previousStep[step] : undefined),
-		value
-	) as OutputValue;
+		typeof value === 'object' ? value ?? {} : {}
+	) as Output;
 }

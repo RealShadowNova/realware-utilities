@@ -3,24 +3,24 @@ import { hasFromObject } from './hasFromObject';
 /**
  * A semi-complex function to manipulate and delete paths in objects.
  * @since 1.0.0
- * @param value The value object to manipulate.
+ * @param input The input object to manipulate.
  * @param path An array of strings forming a path.
- * @returns The manipulated value object.
+ * @returns The manipulated input object.
  */
-export function deleteFromObject<
-	InputValue extends Record<string, InputValue | unknown>,
-	OutputValue extends Record<string, OutputValue | unknown> = InputValue
->(value: InputValue, path: string[]): OutputValue {
-	if (!path.length) return value as OutputValue;
-	if (!hasFromObject(value, path)) value as OutputValue;
+export function deleteFromObject<Input, Output = unknown>(input: Input, path: string[]): Output {
+	if (!path.length) return input as unknown as Output;
+	if (!hasFromObject(input, path)) return input as unknown as Output;
 
-	path.reduce<Record<string, any>>((previousStep, step, index) => {
-		if (typeof previousStep !== 'object') return previousStep;
-		if (Array.isArray(previousStep)) return previousStep;
-		if (index === path.length - 1) Reflect.deleteProperty(previousStep, step);
+	path.reduce<Record<string, any>>(
+		(previousStep, step, index) => {
+			if (typeof previousStep !== 'object') return previousStep;
+			if (Array.isArray(previousStep)) return previousStep;
+			if (index === path.length - 1) Reflect.deleteProperty(previousStep, step);
 
-		return previousStep[step];
-	}, value);
+			return previousStep[step];
+		},
+		typeof input === 'object' ? input ?? {} : {}
+	);
 
-	return value as OutputValue;
+	return input as unknown as Output;
 }

@@ -1,22 +1,25 @@
 /**
  * A semi-complex function to manipulate and set paths in objects.
  * @since 1.1.0
- * @param data The data object to manipulate.
+ * @param input The input object to manipulate.
  * @param path An array of strings forming a path.
  * @param value The value to set at the given path.
- * @returns The manipulated data object.
+ * @returns The manipulated input object.
  */
-export function setToObject<Data extends Record<string, any>, Value>(data: Data, path: string[], value: Value): Data {
-	if (!path.length) return (data = value as Data);
-	if (typeof data !== 'object') data = {} as Data;
+export function setToObject<Input, Value, Output = unknown>(input: Input, path: string[], value: Value): Output {
+	if (!path.length) return value as unknown as Output;
+	if (typeof input !== 'object') input = {} as Input;
 
-	path.reduce<Record<string, any>>((previousStep, step, index) => {
-		if (typeof previousStep[step] !== 'object') Reflect.deleteProperty(previousStep, step);
-		if (previousStep[step] === undefined) Reflect.set(previousStep, step, {});
-		if (index === path.length - 1) Reflect.set(previousStep, step, value);
+	path.reduce<Record<string, any>>(
+		(previousStep, step, index) => {
+			if (typeof previousStep[step] !== 'object') Reflect.deleteProperty(previousStep, step);
+			if (previousStep[step] === undefined) Reflect.set(previousStep, step, {});
+			if (index === path.length - 1) Reflect.set(previousStep, step, value);
 
-		return previousStep[step];
-	}, data);
+			return previousStep[step];
+		},
+		typeof input === 'object' ? input ?? {} : {}
+	);
 
-	return data;
+	return input as unknown as Output;
 }
