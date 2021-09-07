@@ -13,8 +13,7 @@ export function deleteFromObject<Input, Output = unknown>(input: Input, path: st
 
 	path.reduce<Record<string, any>>(
 		(previousStep, step, index) => {
-			if (typeof previousStep !== 'object') return previousStep;
-			if (Array.isArray(previousStep)) return previousStep;
+			if (typeof previousStep !== 'object') previousStep = {};
 			if (index === path.length - 1) Reflect.deleteProperty(previousStep, step);
 
 			return previousStep[step];
