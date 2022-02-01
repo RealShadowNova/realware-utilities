@@ -8,27 +8,34 @@
 	"license": "MIT",
 	"private": false,
 	"scripts": {
-		"lint": "eslint src tests scripts --ext mjs,ts --fix",
-		"format": "prettier --write {src,tests,scripts}/**/*.{mjs,ts}",
+		"clean": "rimraf dist node_modules/.cache",
+		"lint": "eslint src tests --ext mjs,ts --fix",
+		"format": "prettier --write {src,tests}/**/*.{mjs,ts}",
 		"test": "jest --verbose",
-		"clean": "node scripts/clean-dist.mjs",
-		"build": "tsc -b src && rollup -c scripts/rollup.bundle.ts",
-		"commit": "git-cz --disable-emoji",
 		"update": "yarn upgrade-interactive --latest",
-		"prepublishOnly": "rollup-type-bundler"
+		"build": "rollup -c rollup.bundle.ts",
+		"prepublishOnly": "rollup-type-bundler",
+		"prepare": "husky install"
 	},
 	"dependencies": {},
 	"devDependencies": {
+		"@commitlint/cli": "^16.1.0",
+		"@commitlint/config-conventional": "^16.0.0",
 		"@favware/rollup-type-bundler": "^1.0.7",
-		"@sapphire/eslint-config": "^3.2.3",
+		"@sapphire/eslint-config": "~4.0.11",
 		"@sapphire/ts-config": "^3.2.0",
 		"@types/jest": "^27.4.0",
 		"@types/node": "^16.4.8",
-		"eslint": "^7.32.0",
+		"eslint": "~8.6.0",
+		"husky": "^7.0.4",
 		"jest": "^27.4.7",
 		"jest-circus": "^27.4.6",
+		"lint-staged": "^12.3.3",
 		"prettier": "^2.5.1",
+		"pretty-quick": "^3.1.3",
 		"rollup": "^2.66.1",
+		"rollup-plugin-cleaner": "^1.0.0",
+		"rollup-plugin-typescript2": "^0.31.1",
 		"rollup-plugin-version-injector": "^1.3.3",
 		"ts-jest": "^27.1.3",
 		"ts-node": "^10.4.0",
@@ -36,7 +43,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/RealShadowNova/realware-utilities"
+		"url": "git+https://github.com/RealShadowNova/realware-utilities.git"
 	},
 	"bugs": {
 		"url": "https://github.com/RealShadowNova/realware-utilities/issues"
@@ -55,5 +62,13 @@
 	],
 	"publishConfig": {
 		"access": "public"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"lint-staged": {
+		"*.ts": "eslint --fix --ext ts"
 	}
 }
