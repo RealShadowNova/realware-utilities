@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 2
       - name: Add TypeScript problem matcher
-        run: echo"::add-matcher::.github/problemMatchers/tsc.json"
+        run: echo "::add-matcher::.github/problemMatchers/tsc.json"
       - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
