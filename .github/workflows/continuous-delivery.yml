@@ -1,0 +1,36 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Publish:
+    name: Publish Next to npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Add TypeScript problem matcher
+        run: echo"::add-matcher::.github/problemMatchers/tsc.json"
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install Dependencies
+        run: yarn --ignore-scripts --frozen-lockfile
+      - name: Bump Version & Publish
+        run: |
+          echo -e "\n# Resolve the tag to be used. \"next\" for push events."
+          TAG="next"
+
+          echo -e "\n# Bump the version"
+          yarn standard-version --skip.commit --skip.tag --prerelease "${TAG}.$(git rev-parse --verify --shot HEAD)"
+
+          echo -e "\n# Publish to NPM"
+          npm publish --tag $TAG || true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
