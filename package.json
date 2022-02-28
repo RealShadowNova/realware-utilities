@@ -1,6 +1,6 @@
 {
 	"name": "@realware/utilities",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Just some useful utility functions in a package.",
 	"deprecated": "@realware/utilities is no longer maintained. Please use property-helpers instead.",
 	"main": "dist/index.js",
