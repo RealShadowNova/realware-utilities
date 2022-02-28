@@ -1,5 +1,6 @@
 /**
  * A semi-complex function to check if a specific property exists in objects.
+ * @deprecated
  * @since 2.0.0
  * @param value The value object to check.
  * @param path An array of strings forming a path.

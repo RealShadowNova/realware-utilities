@@ -1,5 +1,6 @@
 /**
  * A semi-complex function to manipulate and set paths in objects.
+ * @deprecated
  * @since 1.1.0
  * @param input The input object to manipulate.
  * @param path An array of strings forming a path.
